@@ -14,7 +14,7 @@ module Panoramic
         :format  => normalize_array(details[:formats]),
         :handler => normalize_array(details[:handlers]),
         :partial => partial || false
-      }.merge(details[:additional_criteria].presence || {})
+      }.merge(details[:additional_criteria].presence || {}).merge(@@resolver_options[:template_filters].presence || {})
 
       @@model.find_model_templates(conditions).map do |record|
         Rails.logger.debug "Rendering template from database: #{path} (#{record.format})"
